@@ -1,6 +1,6 @@
 import Modal from '@/components/ui/modal'
-import { TableBodyProps } from '@/types/header_data_interface'
-import { TableDataInterface } from '@/types/table_data_inreface'
+import { TableBodyProps } from '@/interface/table_component_interface'
+import { TableDataInterface } from '@/interface/table_data_inreface'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -13,9 +13,9 @@ const UserDetails: NextPage = () => {
   const [userId, setUserId] = useState<string>(router.query.user_id as string)
 
   useEffect(() => {
-    
+
     if (router.query) {
-  
+
       setUserId(router.query.user_id as string)
     }
   }, [router.isReady, router.query])
@@ -33,24 +33,29 @@ const UserDetails: NextPage = () => {
 
   return (
     <div className={""}>
-      <Modal handleClose={() => { }} show={true} >
-        {
-          Object.entries(userDetails).map((data, index) => {
+      <Modal show={true} >
+        <div>
+          <p className='text-20 mb-5 text-center font-bold'>User Details</p>
+          <div className='space-y-5'>
+            {
+              Object.entries(userDetails).map((data, index) => {
 
-            const dataKey = data[0]
-            const dataValue = data[1]
+                const dataKey = data[0]
+                const dataValue = data[1]
 
-            return (
-              <>
-                {dataKey !== "actions" && <div className='flex space-x-5'>
-                  <p className='font-bold uppercase'>{dataKey}</p>
-                  <p className='font-normal'>{dataValue}</p>
-                </div>
-                }
-              </>
-            )
-          })
-        }
+                return (
+                  <>
+                    {dataKey !== "actions" && <div className='flex space-x-5'>
+                      <p className='font-bold uppercase'>{dataKey}</p>
+                      <p className='font-normal'>{dataValue}</p>
+                    </div>
+                    }
+                  </>
+                )
+              })
+            }
+          </div>
+        </div>
 
       </Modal>
     </div>

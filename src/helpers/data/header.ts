@@ -1,5 +1,6 @@
+import { HeaderDataInterface } from "@/interface/header_data_interface";
 import { TableSortEnum } from "../enums/table_actions_enums";
-import { HeaderDataInterface, SortingFilterInterface } from "../interfaces/header_data_interface";
+import { SortingFilterInterface } from "../interfaces/table_component_interface";
 
 export const HeaderData: HeaderDataInterface[] = [
     {
@@ -24,8 +25,8 @@ export const HeaderData: HeaderDataInterface[] = [
     },
     {
         key: 'actions',
-        title: 'actions',
-        sort: true
+        title: 'actions               ',
+        sort: false
     }
 
 ]

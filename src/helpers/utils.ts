@@ -20,7 +20,6 @@ export const transformUserData = (userData: TableDataInterface) => {
 
 export const sortArrayByKey = (arr, key: string, sortType: TableSortEnum) => {
     let sortedArr;
-    console.log("util", arr, key, sortType)
     if (sortType == TableSortEnum.ASC) {
         sortedArr = arr.slice().sort((a, b) => (a[key] < b[key]) ? -1 : 1);
         return sortedArr

@@ -14,18 +14,3 @@ export interface TableHeaderProps{
 }
 
 
-export interface TableBodyProps{
-    data:TableDataInterface[],
-    onRowClicked:(rowData:TableDataInterface)=>void
-}
-
-export interface TableDataRowProps{
-    tableData:TableDataInterface,
-    onRowClicked:(rowData:TableDataInterface)=>void
-}
-
-
-export interface SortingFilterInterface{
-   key:string,
-   sortType:TableSortEnum
-}[]

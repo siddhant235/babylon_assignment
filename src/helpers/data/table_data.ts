@@ -32,7 +32,7 @@ export const TableData :TableDataInterface[]= [
     name: 'Siddhant Agarwal2', 
     age:26,
     dateOfBirth: new Date("1999-07-15"), 
-    indianCitizen: false, 
+    indianCitizen: true, 
     actions: tableActions,
 },
 {
@@ -41,6 +41,22 @@ export const TableData :TableDataInterface[]= [
     age:27,
     dateOfBirth: new Date("1999-07-13"), 
     indianCitizen: false, 
+    actions: tableActions,
+},
+{
+    userId:"50",
+    name: 'Siddhant Agarwal50', 
+    age:27,
+    dateOfBirth: new Date("1999-07-13"), 
+    indianCitizen: false, 
+    actions: tableActions,
+},
+{
+    userId:"500",
+    name: 'Siddhant Agarwal500', 
+    age:27,
+    dateOfBirth: new Date("1999-07-13"), 
+    indianCitizen: true, 
     actions: tableActions,
 }
 

@@ -1,10 +1,10 @@
 import { TableData } from "@/data/table_data";
-import { TableDataInterface } from "@/types/table_data_inreface";
+import { TableDataInterface } from "@/interface/table_data_inreface";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TableSortEnum } from "src/helpers/enums/table_actions_enums";
 import { sortArrayByKey } from "src/helpers/utils";
 import { SortingFilters } from "@/data/header"
-import { SortingFilterInterface } from "@/types/header_data_interface";
+import { SortingFilterInterface } from "@/interface/table_component_interface";
 interface TableDataState {
   tableData: TableDataInterface[],
   sortingFiltersData: SortingFilterInterface[]
@@ -21,8 +21,8 @@ export const tableActionsSlice = createSlice({
   name: "tableDataActions",
   initialState,
   reducers: {
-    setTableDataToInitial:(state,action:PayloadAction<void>)=>{
-       state.tableData=TableData
+    setTableDataToInitial: (state, action: PayloadAction<void>) => {
+      state.tableData = TableData
     },
     editUser: (state, action: PayloadAction<{ editedData: TableDataInterface }>) => {
 
@@ -40,7 +40,7 @@ export const tableActionsSlice = createSlice({
       const headerKey = action.payload.headerKey
       const sortType = action.payload.sortType
       const persistFilter = action.payload.persistFilter
-     
+
       if (persistFilter) {
         const indexOfFilter = state.sortingFiltersData.findIndex((data) => data.key == headerKey)
 
@@ -52,16 +52,16 @@ export const tableActionsSlice = createSlice({
         state.sortingFiltersData = newFiltersState
       }
 
-      if(sortType==TableSortEnum.NONE){
-        state.tableData=TableData
+      if (sortType == TableSortEnum.NONE) {
+        state.tableData = TableData
         return;
-     }
+      }
       const sortedData = sortArrayByKey(state.tableData, headerKey, sortType)
       state.tableData = sortedData
     }
   }
 });
 
-export const { editUser, deleteUser, sortTableData ,setTableDataToInitial } = tableActionsSlice.actions;
+export const { editUser, deleteUser, sortTableData, setTableDataToInitial } = tableActionsSlice.actions;
 
 export default tableActionsSlice.reducer;

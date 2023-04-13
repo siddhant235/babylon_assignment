@@ -1,7 +1,7 @@
 import Modal from '@/components/ui/modal'
 import { tableActions } from '@/data/table_data'
 import { editUser } from '@/slices/table_action_slices'
-import { TableDataInterface } from '@/types/table_data_inreface'
+import { TableDataInterface } from '@/interface/table_data_inreface'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'

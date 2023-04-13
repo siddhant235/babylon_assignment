@@ -1,5 +1,5 @@
 import { TableActionsEnum } from "src/helpers/enums/table_actions_enums"
-import { HeaderDataInterface, TableBodyProps, TableDataRowProps, TableHeaderProps } from "src/helpers/interfaces/header_data_interface"
+import { TableHeaderProps } from "src/helpers/interfaces/header_data_interface"
 import { TableDataInterface } from "src/helpers/interfaces/table_data_inreface"
 import { headerRowClass, tableContainerClass, tableDataClass, tableHeaderClass } from "./styles"
 import { useRouter } from "next/router"
@@ -9,29 +9,25 @@ import { deleteUser, setTableDataToInitial, sortTableData } from "@/slices/table
 import { useEffect, useState } from "react"
 import Modal from "../modal"
 import { transformUserData } from "src/helpers/utils"
-import { SortingFilters } from "@/data/header"
+import { TableBodyProps, TableDataRowProps, TableProps } from "@/interface/table_component_interface"
 
 
-interface TableProps {
-    data: TableDataInterface[],
-    header: HeaderDataInterface[],
-    fixedHeader?: boolean,
-    onRowClicked?: (rowData:TableDataInterface) => void,
-    persistFilter?: boolean,
-    height?: number
-}
+
+
 
 const Table = (props: TableProps) => {
-    const { data, header, fixedHeader = false, onRowClicked=()=>{}, persistFilter=false, height } = props
-    const tableHeight = `h-[${height}px]`
-   
+    const { data, header, fixedHeader = false, onRowClicked = () => { }, persistFilter = false, height } = props
+    const tableHeight = ` h-[${height}px]`
+
     return (
-        <div className={`flex w-full h-full items-center justify-center p-20`}>
-            <table className={tableContainerClass}>
+
+        <div className="overflow-y">
+           <table className={tableContainerClass+tableHeight}>
                 <TableHeader headerData={header} fixedHeader={fixedHeader} persistFilter={persistFilter} />
-                <TableBody data={data} onRowClicked={(rowData)=>onRowClicked(rowData)}  />
-            </table>
+                <TableBody data={data} onRowClicked={(rowData) => onRowClicked(rowData)} />
+           </table>
         </div>
+
     )
 }
 
@@ -45,44 +41,42 @@ const Table = (props: TableProps) => {
 
 const TableHeader = (props: TableHeaderProps) => {
 
-    const { headerData, fixedHeader ,persistFilter } = props
-    const dispatch=useAppDispatch()
-    const sortingFilters=useAppSelector((state)=>state.tableSlice.sortingFiltersData)
-    const [sortingFilter,setSortingFilter]=useState(sortingFilters)
-    const fixedClass = fixedHeader ? "fixed" : ""
+    const { headerData, fixedHeader, persistFilter } = props
+    const dispatch = useAppDispatch()
+    const sortingFilters = useAppSelector((state) => state.tableSlice.sortingFiltersData)
+    const [sortingFilter, setSortingFilter] = useState(sortingFilters)
+    const fixedClass = fixedHeader ? "sticky top-0" : ""
 
-    const handleSort=(headerKey:string,e:any)=>{
-        dispatch(sortTableData({headerKey:headerKey,sortType:e.target.value,persistFilter:persistFilter}))
-       
-    }
-  console.log("sorting",sortingFilters)
-    useEffect(()=>{
+    const handleSort = (headerKey: string, e: any) => {
+        dispatch(sortTableData({ headerKey: headerKey, sortType: e.target.value, persistFilter: persistFilter }))
+  }
 
-        if(!persistFilter){
+    useEffect(() => {
+
+        if (!persistFilter) {
             dispatch(setTableDataToInitial())
-        }else{
+        } else {
             setSortingFilter(sortingFilters)
         }
-    },[sortingFilters,persistFilter])
+    }, [sortingFilters, persistFilter])
+
     return (
         <thead className={tableHeaderClass + fixedClass}>
-            <tr>
+            <tr className={fixedHeader ? fixedClass : ""}>
                 {
                     headerData.map((headerData, index) => {
-                        console.log(headerData.key)
-                     const selectedFilter=persistFilter?sortingFilter.filter((data)=>data.key==headerData.key)[0].sortType:""
-                     console.log("selected filter",selectedFilter,sortingFilters)  
-                     return (
+                        const selectedFilter = persistFilter ? sortingFilter.filter((data) => data.key == headerData.key)[0].sortType : ""
+                        return (
                             <th className={headerRowClass} key={headerData.key}>
                                 {headerData.title}
                                 {headerData.sort && (
                                     <div className="p-2">
-                                        <select value={persistFilter ? selectedFilter:""} className="border border-red-700 ml-5 " onChange={(e)=>handleSort(headerData.key,e)}>
-                                <option value="" selected disabled hidden>Sort By</option>
-                                    <option>asc</option>
-                                    <option>desc</option>
-                                    <option>none</option>
-                                </select>
+                                        <select value={persistFilter ? selectedFilter : ""} className="border border-red-700 ml-5 " onChange={(e) => handleSort(headerData.key, e)}>
+                                            <option value="" selected disabled hidden>Sort By</option>
+                                            <option>asc</option>
+                                            <option>desc</option>
+                                            <option>none</option>
+                                        </select>
                                     </div>
                                 )}
                             </th>
@@ -100,14 +94,14 @@ const TableHeader = (props: TableHeaderProps) => {
 //table body component 
 
 const TableBody = (props: TableBodyProps) => {
-    const { data,onRowClicked } = props
+    const { data, onRowClicked } = props
     return (
-        <tbody className="">
+        <tbody className="max-h-[10px]">
             {
                 data.map((userData: TableDataInterface, index: number) => {
                     const transformedData = transformUserData(userData)
                     return (
-                        <TableDataRow key={userData.name} tableData={transformedData} onRowClicked={(rowData)=>onRowClicked(rowData)}/>
+                        <TableDataRow key={userData.name} tableData={transformedData} onRowClicked={(rowData) => onRowClicked(rowData)} />
                     )
                 })
             }
@@ -123,10 +117,10 @@ const TableBody = (props: TableBodyProps) => {
 
 
 const TableDataRow = (props: TableDataRowProps) => {
-    const { tableData,onRowClicked } = props
+    const { tableData, onRowClicked } = props
 
     return (
-        <tr className="border-solid">
+        <tr className="border-solid ml-5">
             {
                 Object.entries(tableData).map((rowData, index: number) => {
                     const rowKey = rowData[0]
@@ -136,7 +130,7 @@ const TableDataRow = (props: TableDataRowProps) => {
                     return (
                         <>
                             {rowKey !== "userId" &&
-                                (rowKey !== "actions" ? (<td key={rowKey} className={tableDataClass} onClick={()=>onRowClicked(tableData)}>
+                                (rowKey !== "actions" ? (<td key={rowKey} className={tableDataClass} onClick={() => onRowClicked(tableData)}>
                                     {rowValue}
                                 </td>) : (<TableActions key={rowKey} tableActions={rowValue} tableData={tableData} />))
                             }
@@ -162,6 +156,7 @@ const TableActions = (props: TableActionProps) => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
     const router = useRouter()
     const dispatch = useAppDispatch()
+
     const handleTableActionClick = (action: TableActionsEnum) => {
         if (action == TableActionsEnum.VIEW) {
             router.push({
@@ -175,16 +170,20 @@ const TableActions = (props: TableActionProps) => {
             })
         }
     }
+
     return (
         <>
-            {
-                tableActions.map((action, index: number) => {
-                    return <td onClick={() => handleTableActionClick(action)} className={"cursor-pointer "} key={action}>{action}</td>
-                })
-            }
+            <td className="flex justify-around border border-slate-300">
+                {
+                    tableActions.map((action, index: number) => {
+                        return <button onClick={() => handleTableActionClick(action)} className={"cursor-pointer text-center underline ml-2 "} key={action}>{action}</button>
+                    })
+                }
+            </td>
 
             {
                 showDeleteModal && (
+
                     <Modal handleClose={() => setShowDeleteModal(false)} show={showDeleteModal}>
                         <h3 className="text-center">Please confirm  to delete this record</h3>
                         <div className="flex items-center justify-center  space-x-10 mt-10">
