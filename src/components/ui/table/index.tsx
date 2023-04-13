@@ -65,7 +65,7 @@ const TableHeader = (props: TableHeaderProps) => {
             <tr className={fixedHeader ? fixedClass : ""}>
                 {
                     headerData.map((headerData, index) => {
-                        const selectedFilter = persistFilter ? sortingFilter.filter((data) => data.key == headerData.key)[0].sortType : ""
+                        const selectedFilter = persistFilter ? sortingFilter.filter((data) => data.key == headerData.key)[0]?.sortType : ""
                         return (
                             <th className={headerRowClass} key={headerData.key}>
                                 {headerData.title}
@@ -118,7 +118,7 @@ const TableBody = (props: TableBodyProps) => {
 
 const TableDataRow = (props: TableDataRowProps) => {
     const { tableData, onRowClicked } = props
-
+    const blacklistedDataRows=["userId","email","address"]
     return (
         <tr className="border-solid ml-5">
             {
@@ -129,7 +129,7 @@ const TableDataRow = (props: TableDataRowProps) => {
 
                     return (
                         <>
-                            {rowKey !== "userId" &&
+                            {!blacklistedDataRows.includes(rowKey) &&
                                 (rowKey !== "actions" ? (<td key={rowKey} className={tableDataClass} onClick={() => onRowClicked(tableData)}>
                                     {rowValue}
                                 </td>) : (<TableActions key={rowKey} tableActions={rowValue} tableData={tableData} />))

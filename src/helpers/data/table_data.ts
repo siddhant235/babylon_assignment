@@ -10,6 +10,8 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-12"), 
     indianCitizen: true, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
 },
 {
     userId:"2",
@@ -18,6 +20,8 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-14"), 
     indianCitizen: false, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
 },
 {
     userId:"3",
@@ -26,6 +30,9 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-11"), 
     indianCitizen: false, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
+
 },
 {
     userId:"4",
@@ -34,6 +41,8 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-15"), 
     indianCitizen: true, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
 },
 {
     userId:"5",
@@ -42,6 +51,8 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-13"), 
     indianCitizen: false, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
 },
 {
     userId:"50",
@@ -50,6 +61,9 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-13"), 
     indianCitizen: false, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
+    
 },
 {
     userId:"500",
@@ -58,6 +72,8 @@ export const TableData :TableDataInterface[]= [
     dateOfBirth: new Date("1999-07-13"), 
     indianCitizen: true, 
     actions: tableActions,
+    address:"Bengaluru, karnataka",
+    email:"test@gmail.com",
 }
 
 

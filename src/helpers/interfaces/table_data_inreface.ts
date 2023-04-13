@@ -4,6 +4,8 @@ export interface TableDataInterface {
     age: number,
     dateOfBirth: Date |string,
     indianCitizen: boolean | string,
-    actions: string[]  // todo think again can we keep this or not
+    actions: string[]  // todo think again can we keep this or not,
+    address:string;
+    email:string
 
 }[]

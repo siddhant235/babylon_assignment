@@ -13,7 +13,7 @@ const UserEdit: NextPage = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const tableData = useAppSelector((state) => (state.tableSlice.tableData))
-  const editableFields = ["name", "age", "dateOfBirth", "indianCitizen"]
+  const editableFields = ["name", "age", "dateOfBirth", "indianCitizen","email","address"]
 
   const [userData, setUserData] = useState<any>()
   const [showUpdateSuccess, setShowUpdateSuccess] = useState<boolean>(false)
@@ -58,6 +58,8 @@ const UserEdit: NextPage = () => {
       dateOfBirth: new Date(`${year}-${month}-${day}`),
       indianCitizen: userData.indianCitizen == "NO" ? false : true,
       actions: tableActions,
+      email:userData.email,
+      address:userData.address
     }
 
     dispatch(editUser({ editedData: editedData }))
@@ -68,10 +70,15 @@ const UserEdit: NextPage = () => {
 
 
   }
+
+  const handleBack=()=>{
+    router.back()
+  }
   return (
 
     <div>
       <Modal show={true} >
+      <button className='bg-slate-300 p-2 rounded-[5px]' onClick={() => handleBack()}>Back</button>
         <div className={"flex flex-col items-center justify-center"}>
           <p className='text-[16px] text-center font-bold mb-10'>Edit user details</p>
           <div className='space-y-5'>
@@ -86,7 +93,7 @@ const UserEdit: NextPage = () => {
 
                     {dataKey !== "actions" && <div className='flex space-x-5'>
                       <p className='font-bold uppercase'>{dataKey}</p>
-                      {editableFields.includes(dataKey) ? <input name={dataKey} defaultValue={userData[dataKey]} className='font-normal border bodrer-black-700 focus' onChange={(e) => handleChange(e)} /> : <p className='font-normal'>{dataValue}</p>}
+                      {editableFields.includes(dataKey) ? <input type="text" name={dataKey} defaultValue={userData[dataKey]} className='font-normal border bodrer-black-700 focus' onChange={(e) => handleChange(e)} /> : <p className='font-normal'>{dataValue}</p>}
                     </div>
                     }
 

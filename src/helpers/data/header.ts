@@ -19,7 +19,7 @@ export const HeaderData: HeaderDataInterface[] = [
         sort: true
     },
     {
-        key: 'isIndianCitizen',
+        key: 'indianCitizen',
         title: 'NRI',
         sort: false
     },
