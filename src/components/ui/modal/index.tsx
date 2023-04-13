@@ -1,8 +1,8 @@
 import {showClass,hideClass,modalSectionClass, closeButtonClass} from "./styles"
 interface ModalProps {
-  handleClose:()=>void,
+  handleClose?:()=>void,
   show:boolean,
-  children:React.ReactNode
+  children:any
 }
 
 const Modal= (props: ModalProps) => {
@@ -12,7 +12,7 @@ const Modal= (props: ModalProps) => {
         <div className={modalContainerClass+"w-full h-full"}>
             <section className={modalSectionClass}>
                 {children}
-                <button className={closeButtonClass} onClick={handleClose}>Close</button>
+                {handleClose && <button className={closeButtonClass} onClick={handleClose}>Close</button>}
             </section>
         </div>
     )

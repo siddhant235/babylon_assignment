@@ -1,4 +1,5 @@
-import { HeaderDataInterface } from "../interfaces/header_data_interface";
+import { TableSortEnum } from "../enums/table_actions_enums";
+import { HeaderDataInterface, SortingFilterInterface } from "../interfaces/header_data_interface";
 
 export const HeaderData: HeaderDataInterface[] = [
     {
@@ -19,7 +20,7 @@ export const HeaderData: HeaderDataInterface[] = [
     {
         key: 'isIndianCitizen',
         title: 'NRI',
-        sort: true
+        sort: false
     },
     {
         key: 'actions',
@@ -28,3 +29,27 @@ export const HeaderData: HeaderDataInterface[] = [
     }
 
 ]
+
+export const SortingFilters:SortingFilterInterface[]=[
+    {
+        key: 'name',
+        sortType: TableSortEnum.DEFAULT
+    } ,
+    {
+        key: 'age',
+        sortType: TableSortEnum.DEFAULT
+    },
+    {
+        key: 'dateOfBirth',
+        sortType: TableSortEnum.DEFAULT
+    },
+    {
+        key: 'isIndianCitizen',
+        sortType: TableSortEnum.DEFAULT
+    },
+    {
+        key: 'actions',
+        sortType: TableSortEnum.DEFAULT
+    }
+]
+
