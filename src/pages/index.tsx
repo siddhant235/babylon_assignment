@@ -23,8 +23,8 @@ const Users = () => {
                 <Table data={tableData} header={HeaderData}
                 fixedHeader={true} // by default false
                 onRowClicked={(rowData: TableDataInterface) => handleRowClicked(rowData)}
-                height={180}  // by default full
-                persistFilter={false}   //by default false
+                // height={180}  // by default full
+                persistFilter={true}   //by default false
             />) : (
                 <Modal show={true}>
                     <p className='text-20 font-bold '>No Records Found</p>
