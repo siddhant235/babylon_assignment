@@ -22,7 +22,8 @@ export const tableActionsSlice = createSlice({
   initialState,
   reducers: {
     setTableDataToInitial: (state, action: PayloadAction<void>) => {
-      state.tableData = TableData
+      state.tableData = TableData,
+      state.sortingFiltersData=SortingFilters
     },
     editUser: (state, action: PayloadAction<{ editedData: TableDataInterface }>) => {
 
@@ -41,7 +42,7 @@ export const tableActionsSlice = createSlice({
       const sortType = action.payload.sortType
       const persistFilter = action.payload.persistFilter
 
-      if (persistFilter) {
+      // if (persistFilter) {
         const indexOfFilter = state.sortingFiltersData.findIndex((data) => data.key == headerKey)
 
         const newFiltersState = state.sortingFiltersData
@@ -50,7 +51,7 @@ export const tableActionsSlice = createSlice({
           sortType: sortType
         }
         state.sortingFiltersData = newFiltersState
-      }
+      // }
 
       if (sortType == TableSortEnum.NONE) {
         state.tableData = TableData

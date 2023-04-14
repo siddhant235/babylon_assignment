@@ -1,7 +1,7 @@
 import { TableActionsEnum } from "src/helpers/enums/table_actions_enums"
 import { TableHeaderProps } from "src/helpers/interfaces/header_data_interface"
 import { TableDataInterface } from "src/helpers/interfaces/table_data_inreface"
-import { headerRowClass, tableContainerClass, tableDataClass, tableHeaderClass } from "./styles"
+import { headerRowClass, tableContainerClass, tableDataClass, tableHeaderClassFixed, tableHeaderClassNormal } from "./styles"
 import { useRouter } from "next/router"
 import { useAppDispatch, useAppSelector } from "src/store"
 import { ROUTES } from "src/routes"
@@ -17,12 +17,12 @@ import { TableBodyProps, TableDataRowProps, TableProps } from "@/interface/table
 
 const Table = (props: TableProps) => {
     const { data, header, fixedHeader = false, onRowClicked = () => { }, persistFilter = false, height } = props
-    const tableHeight = ` h-[${height}px]`
+
 
     return (
 
-        <div className="overflow-y">
-           <table className={tableContainerClass+tableHeight}>
+        <div className={` overflow-scroll`} style={{height:`${height}px`}}>
+           <table className={tableContainerClass}>
                 <TableHeader headerData={header} fixedHeader={fixedHeader} persistFilter={persistFilter} />
                 <TableBody data={data} onRowClicked={(rowData) => onRowClicked(rowData)} />
            </table>
@@ -44,8 +44,8 @@ const TableHeader = (props: TableHeaderProps) => {
     const { headerData, fixedHeader, persistFilter } = props
     const dispatch = useAppDispatch()
     const sortingFilters = useAppSelector((state) => state.tableSlice.sortingFiltersData)
-    const [sortingFilter, setSortingFilter] = useState(sortingFilters)
-    const fixedClass = fixedHeader ? "sticky top-0" : ""
+    // const [sortingFilter, setSortingFilter] = useState(sortingFilters)
+    const fixedClass = fixedHeader ? "sticky w-full top-0" : ""
 
     const handleSort = (headerKey: string, e: any) => {
         dispatch(sortTableData({ headerKey: headerKey, sortType: e.target.value, persistFilter: persistFilter }))
@@ -55,23 +55,22 @@ const TableHeader = (props: TableHeaderProps) => {
 
         if (!persistFilter) {
             dispatch(setTableDataToInitial())
-        } else {
-            setSortingFilter(sortingFilters)
-        }
-    }, [sortingFilters, persistFilter])
+        } 
+        console.log("use effect runnning")
+    }, [])
 
     return (
-        <thead className={tableHeaderClass + fixedClass}>
-            <tr className={fixedHeader ? fixedClass : ""}>
+        <thead className={fixedHeader?tableHeaderClassFixed:tableHeaderClassNormal}>
+            <tr className={fixedClass}>
                 {
                     headerData.map((headerData, index) => {
-                        const selectedFilter = persistFilter ? sortingFilter.filter((data) => data.key == headerData.key)[0]?.sortType : ""
+                        const selectedFilter =  sortingFilters.filter((data) => data.key == headerData.key)[0]?.sortType 
                         return (
                             <th className={headerRowClass} key={headerData.key}>
                                 {headerData.title}
                                 {headerData.sort && (
                                     <div className="p-2">
-                                        <select value={persistFilter ? selectedFilter : ""} className="border border-red-700 ml-5 " onChange={(e) => handleSort(headerData.key, e)}>
+                                        <select value={ selectedFilter} className="border border-red-700 ml-5 " onChange={(e) => handleSort(headerData.key, e)}>
                                             <option value="" selected disabled hidden>Sort By</option>
                                             <option>asc</option>
                                             <option>desc</option>
