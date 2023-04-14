@@ -23,7 +23,7 @@ const Users = () => {
                 <Table data={tableData} header={HeaderData}
                 fixedHeader={true} // by default false
                 onRowClicked={(rowData: TableDataInterface) => handleRowClicked(rowData)}
-                // height={180}   by default full
+                height={180}  // by default full
                 persistFilter={false}   //by default false
             />) : (
                 <Modal show={true}>

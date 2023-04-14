@@ -61,7 +61,7 @@ const UserEdit: NextPage = () => {
       email:userData.email,
       address:userData.address
     }
-
+console.log("edited data",editedData)
     dispatch(editUser({ editedData: editedData }))
     setShowUpdateSuccess(true)
     setTimeout(() => {

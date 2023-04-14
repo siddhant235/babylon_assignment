@@ -22,7 +22,7 @@ export const tableActionsSlice = createSlice({
   initialState,
   reducers: {
     setTableDataToInitial: (state, action: PayloadAction<void>) => {
-      state.tableData = TableData,
+      // state.tableData = TableData,
       state.sortingFiltersData=SortingFilters
     },
     editUser: (state, action: PayloadAction<{ editedData: TableDataInterface }>) => {
