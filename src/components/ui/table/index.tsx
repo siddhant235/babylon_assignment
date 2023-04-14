@@ -44,7 +44,6 @@ const TableHeader = (props: TableHeaderProps) => {
     const { headerData, fixedHeader, persistFilter } = props
     const dispatch = useAppDispatch()
     const sortingFilters = useAppSelector((state) => state.tableSlice.sortingFiltersData)
-    // const [sortingFilter, setSortingFilter] = useState(sortingFilters)
     const fixedClass = fixedHeader ? "sticky w-full top-0" : ""
 
     const handleSort = (headerKey: string, e: any) => {
